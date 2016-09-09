@@ -31,41 +31,6 @@ namespace SimpleRPG.ViewModels
             UpdateCommand = new UnitUpdateCommand(this);
         }
 
-        /// <summary>
-        /// Gets or sets a bool value indicating whether the Unit can be updated.
-        /// </summary>
-        public bool CanUpdate
-        {
-            get
-            {
-                if(Unit == null)
-                {
-                    return false;
-                }
-                if (String.IsNullOrWhiteSpace(Unit.Name) || Unit.Name.Length > 10 || Unit.Name.Length < 4)
-                {
-                    return false;
-                }
-                if (!Regex.IsMatch(Unit.Name, @"^[a-zA-Z]+$"))
-                {
-                    return false;
-                }
-                if (Unit.MaxHealth < 10 || Unit.MaxHealth > 100)
-                {
-                    return false;
-                }
-                if (Unit.Attack <= 0 || Unit.Attack > 50)
-                {
-                    return false;
-                }
-                if (Unit.Defense <= 0 || Unit.MaxHealth > 50)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
         public ICommand UpdateCommand
         {
             get;

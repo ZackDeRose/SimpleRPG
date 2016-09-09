@@ -11,29 +11,32 @@
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Name:</Label>
-                    <TextBox Text="{Binding Unit.Name, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
+                    <TextBox Text="{Binding Unit.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Health:</Label>
-                    <TextBox Text="{Binding Unit.MaxHealth, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
+                    <TextBox Text="{Binding Unit.MaxHealth, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Attack:</Label>
-                    <TextBox Text="{Binding Unit.Attack, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
+                    <TextBox Text="{Binding Unit.Attack, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Defense:</Label>
-                    <TextBox Text="{Binding Unit.Defense, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
+                    <TextBox Text="{Binding Unit.Defense, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
                 </StackPanel>
             </Border>
             <Border Padding="15" HorizontalAlignment="Center">
                 <Button Command="{Binding UpdateCommand}">Create</Button>
+            </Border>
+            <Border Padding="5" HorizontalAlignment="Center">
+                <Label Content="{Binding Unit.Error, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
         </StackPanel>
     </Grid>

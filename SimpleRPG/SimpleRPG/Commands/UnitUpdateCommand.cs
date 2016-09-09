@@ -27,7 +27,7 @@ namespace SimpleRPG.Commands
 
         public bool CanExecute(object parameter)
         {
-            return _ViewModel.CanUpdate;
+            return String.IsNullOrEmpty(_ViewModel.Unit.Error);
         }
 
         public void Execute(object parameter)

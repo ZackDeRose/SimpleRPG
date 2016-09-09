@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace SimpleRPG.Models
 {
-    public class Unit : INotifyPropertyChanged
+    public class Unit : INotifyPropertyChanged, IDataErrorInfo
     {
 
         #region UnitProperties
@@ -24,8 +26,7 @@ namespace SimpleRPG.Models
             }
             set
             {
-                _Name = value;
-                OnPropertyChanged("Name");
+                _Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
             }
         }
 
@@ -127,6 +128,57 @@ namespace SimpleRPG.Models
             if(handler != null)
             {
                 handler(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #endregion
+
+        #region IDataErrorInfo Members
+
+        public string Error
+        {
+            get;
+            private set;
+        }
+
+        public string this[string columnName]
+        {
+            get
+            {
+                Error = "";
+                if (columnName == "Name")
+                {
+                    if(String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
+                    {
+                        Error += "Invalid Name Length.";
+                    }
+                    if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                    {
+                        Error += "Invalid Name Format.";
+                    }
+                }
+                else if (columnName == "MaxHealth")
+                {
+                    if (MaxHealth < 10 || MaxHealth > 100)
+                    {
+                        Error += "Health outside of acceptable range.";
+                    }
+                }
+                else if (columnName == "Attack")
+                {
+                    if (Attack <= 0 || Attack > 50)
+                    {
+                        Error += "Attack outside of acceptable range.";
+                    }
+                }
+                else if (columnName == "Defense")
+                {
+                    if (Defense <= 0 || Defense > 50)
+                    {
+                        Error += "Health outside of acceptable range.";
+                    }
+                }
+                return Error;
             }
         }
 
