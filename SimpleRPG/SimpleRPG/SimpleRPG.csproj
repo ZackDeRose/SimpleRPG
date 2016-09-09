@@ -55,6 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\UnitUpdateCommand.cs" />
     <Compile Include="ViewModels\UnitViewModel.cs" />
     <Compile Include="Views\UnitWindow.xaml.cs">
       <DependentUpon>UnitWindow.xaml</DependentUpon>

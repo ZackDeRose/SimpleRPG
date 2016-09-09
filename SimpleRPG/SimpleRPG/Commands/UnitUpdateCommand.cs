@@ -19,7 +19,11 @@ namespace SimpleRPG.Commands
 
         #region ICommand Members
 
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler CanExecuteChanged
+        {
+            add { CommandManager.RequerySuggested += value; }
+            remove
+        }
 
         public bool CanExecute(object parameter)
         {
