@@ -10,14 +10,14 @@
         <Border Padding="5" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Label>Name:</Label>
-                <TextBox Text="{Binding Unit.Name}" Width="136"/>
-                <Button>Update</Button>
+                <TextBox Text="{Binding Unit.Name, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
+                <Button Command="{Binding UpdateCommand}">Update</Button>
             </StackPanel>
         </Border>
         <Border Padding="5" HorizontalAlignment="Right">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 <Label>Health:</Label>
-                <TextBox Text="{Binding Unit.MaxHealth}" Width="136"/>
+                <TextBox Text="{Binding Unit.MaxHealth, UpdateSourceTrigger=PropertyChanged}" Width="136"/>
                 <Button Command="{Binding UpdateCommand}">Update</Button>
             </StackPanel>
         </Border>

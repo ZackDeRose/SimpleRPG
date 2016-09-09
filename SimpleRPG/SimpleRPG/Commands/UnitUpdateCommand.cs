@@ -22,17 +22,17 @@ namespace SimpleRPG.Commands
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
-            remove
+            remove { CommandManager.RequerySuggested -= value; }
         }
 
         public bool CanExecute(object parameter)
         {
-            throw new NotImplementedException();
+            return _ViewModel.CanUpdate;
         }
 
         public void Execute(object parameter)
         {
-            throw new NotImplementedException();
+            _ViewModel.SaveChanges();
         }
 
         #endregion

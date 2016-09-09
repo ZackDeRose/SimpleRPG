@@ -57,6 +57,9 @@
     </ApplicationDefinition>
     <Compile Include="Commands\UnitUpdateCommand.cs" />
     <Compile Include="ViewModels\UnitViewModel.cs" />
+    <Compile Include="Views\NewUnitWindow.xaml.cs">
+      <DependentUpon>NewUnitWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UnitWindow.xaml.cs">
       <DependentUpon>UnitWindow.xaml</DependentUpon>
     </Compile>
@@ -72,6 +75,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\NewUnitWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UnitWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
