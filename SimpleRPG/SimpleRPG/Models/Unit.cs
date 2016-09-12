@@ -40,7 +40,7 @@ namespace SimpleRPG.Models
 
                 OnPropertyChanged("Name");
                 OnPropertyChanged("ClassError");
-                //OnPropertyChanged(this["Name"]);
+                OnPropertyChanged(this["Name"]);
             }
         }
 
@@ -59,7 +59,7 @@ namespace SimpleRPG.Models
                 _health = value;
                 OnPropertyChanged("Health");
                 OnPropertyChanged("ClassError");
-                //OnPropertyChanged(this["Health"]);
+                OnPropertyChanged(this["Health"]);
             }
         }
 
@@ -78,7 +78,7 @@ namespace SimpleRPG.Models
                 _speed = value;
                 OnPropertyChanged("Speed");
                 OnPropertyChanged("ClassError");
-                //OnPropertyChanged(this["Speed"]);
+                OnPropertyChanged(this["Speed"]);
             }
         }
 
@@ -97,7 +97,7 @@ namespace SimpleRPG.Models
                 _attack = value;
                 OnPropertyChanged("Attack");
                 OnPropertyChanged("ClassError");
-                //OnPropertyChanged(this["Attack"]);
+                OnPropertyChanged(this["Attack"]);
             }
         }
 
@@ -117,7 +117,7 @@ namespace SimpleRPG.Models
                 _defense = value;
                 OnPropertyChanged("Defense");
                 OnPropertyChanged("ClassError");
-                OnPropertyChanged(this["Defense"]);
+                //OnPropertyChanged(this["Defense"]);
             }
         }
 
