@@ -28,20 +28,41 @@ namespace SimpleRPG.ViewModels
         public UnitViewModel()
         {
             _Unit = new Models.Unit("", 0, 0, 0);
-            UpdateCommand = new UnitUpdateCommand(this);
         }
 
-        public ICommand UpdateCommand
+        public UnitViewModel(Unit unit)
         {
-            get;
-            private set;
+            _Unit = unit;
         }
+
+        public void DoStuff()
+        {
+            List<Unit> myStuff = new List<Unit>();
+            List<Unit> unitsa = myStuff.FindAll(t => t.Defense > 50);
+
+            List<Unit> units = (from temp in myStuff where temp.Defense > 50 select temp).ToList();
+        }
+
 
         public void SaveChanges()
         {
             Debug.Assert(false, String.Format("{0} was updated.", Unit.Name));
         }
 
-        
+
+        private ICommand _unitUpdateCommand;
+        public ICommand UnitUpdateCommand
+        {
+            get
+            {
+                if (_unitUpdateCommand == null)
+                    _unitUpdateCommand = new RelayCommand(
+                        param => SaveChanges(),
+                        param => string.IsNullOrWhiteSpace(Unit.ClassError));
+
+                return _unitUpdateCommand;
+            }
+        }
+
     }
 }

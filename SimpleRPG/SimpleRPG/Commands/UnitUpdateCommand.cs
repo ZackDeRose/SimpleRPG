@@ -27,7 +27,7 @@ namespace SimpleRPG.Commands
 
         public bool CanExecute(object parameter)
         {
-            return String.IsNullOrEmpty(_ViewModel.Unit.Error);
+            return String.IsNullOrEmpty(_ViewModel.Unit.ClassError);
         }
 
         public void Execute(object parameter)
@@ -37,4 +37,6 @@ namespace SimpleRPG.Commands
 
         #endregion
     }
+
+    
 }

@@ -26,7 +26,20 @@ namespace SimpleRPG.Models
             }
             set
             {
-                _Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(value.ToLower());
+                _Name = "";
+                char[] temp = value.ToCharArray();
+                for(int i = 0; i < 10 && i < temp.Length; i++)
+                {
+                    if(((temp[i] >= 'a' && temp[i] <= 'z') || (temp[i] >= 'A' && temp[i] <= 'Z')))
+                    {
+                        _Name += temp[i];
+                    }
+                }
+                _Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Name.ToLower());
+
+                OnPropertyChanged("Name");
+                OnPropertyChanged("ClassError");
+                OnPropertyChanged(this["Name"]);
             }
         }
 
@@ -44,6 +57,8 @@ namespace SimpleRPG.Models
             {
                 _MaxHealth = value;
                 OnPropertyChanged("MaxHealth");
+                OnPropertyChanged("ClassError");
+                OnPropertyChanged(this["MaxHealth"]);
             }
         }
 
@@ -61,6 +76,7 @@ namespace SimpleRPG.Models
             {
                 _CurrentHealth = value;
                 OnPropertyChanged("CurrentHealth");
+                OnPropertyChanged("ClassError");
             }
         }
 
@@ -78,6 +94,7 @@ namespace SimpleRPG.Models
             {
                 _Attack = value;
                 OnPropertyChanged("Attack");
+                OnPropertyChanged("ClassError");
             }
         }
 
@@ -96,6 +113,7 @@ namespace SimpleRPG.Models
             {
                 _Defense = value;
                 OnPropertyChanged("Defense");
+                OnPropertyChanged("ClassError");
             }
         }
 
@@ -141,6 +159,41 @@ namespace SimpleRPG.Models
             private set;
         }
 
+        private string _classError;
+        public String ClassError
+        {
+            get
+            {
+                _classError = "";
+                if (String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
+                {
+                    _classError += "Invalid Name Length.";
+                }
+                if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                {
+                    _classError += "Invalid Name Format.";
+                }
+                if (MaxHealth < 10 || MaxHealth > 100)
+                {
+                    _classError += "Health outside of acceptable range.";
+                }
+                if (Attack <= 0 || Attack > 50)
+                {
+                    _classError += "Attack outside of acceptable range.";
+                }
+                if (Defense <= 0 || Defense > 50)
+                {
+                    _classError += "Health outside of acceptable range.";
+                }
+                return _classError;
+            }
+            private set
+            {
+                _classError = value;
+                OnPropertyChanged("ClassError");
+            }
+        }
+
         public string this[string columnName]
         {
             get
@@ -148,7 +201,7 @@ namespace SimpleRPG.Models
                 Error = "";
                 if (columnName == "Name")
                 {
-                    if(String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
+                    if (String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
                     {
                         Error += "Invalid Name Length.";
                     }
@@ -177,6 +230,10 @@ namespace SimpleRPG.Models
                     {
                         Error += "Health outside of acceptable range.";
                     }
+                }
+                else
+                {
+                   //
                 }
                 return Error;
             }

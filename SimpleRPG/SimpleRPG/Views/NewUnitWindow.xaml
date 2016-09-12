@@ -5,38 +5,42 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleRPG.Views"
         mc:Ignorable="d"
-        Title="NewUnitWindow" Height="250" Width="300">
+        Title= "Create a New Unit" Height="250" Width="300">
     <Grid>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <Border Padding="5" HorizontalAlignment="Right">
+            <Border Padding="5" HorizontalAlignment="Right" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Name:</Label>
                     <TextBox Text="{Binding Unit.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
+                    <TextBlock Text="{Binding Unit[Name]}" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Health:</Label>
-                    <TextBox Text="{Binding Unit.MaxHealth, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
+                    <TextBox Text="{Binding Unit.MaxHealth, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"></TextBox>
+                    <TextBlock Text="{Binding Unit[MaxHealth]}" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Attack:</Label>
                     <TextBox Text="{Binding Unit.Attack, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
+                    <TextBlock Text="{Binding Unit[Attack]}" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Defense:</Label>
                     <TextBox Text="{Binding Unit.Defense, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" Width="136"/>
+                    <TextBlock Text="{Binding Unit[Defense]}" />
                 </StackPanel>
             </Border>
             <Border Padding="15" HorizontalAlignment="Center">
-                <Button Command="{Binding UpdateCommand}">Create</Button>
+                <Button Command="{Binding UnitUpdateCommand}" IsEnabled="{Binding UnitUpdateCommand.CanExecute, UpdateSourceTrigger=PropertyChanged}">Create</Button>
             </Border>
             <Border Padding="5" HorizontalAlignment="Center">
-                <Label Content="{Binding Unit.Error, UpdateSourceTrigger=PropertyChanged}"/>
+                <!---<Label Content="{Binding Unit.Error, UpdateSourceTrigger=Default}"/>-->
             </Border>
         </StackPanel>
     </Grid>

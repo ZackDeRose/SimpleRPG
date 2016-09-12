@@ -25,5 +25,10 @@ namespace SimpleRPG.Views
             InitializeComponent();
             DataContext = new UnitViewModel();
         }
+
+        public void SetPageTitle(dynamic title)
+        {
+
+        }
     }
 }
