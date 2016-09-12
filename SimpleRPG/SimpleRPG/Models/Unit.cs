@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
@@ -12,9 +13,9 @@ namespace SimpleRPG.Models
     public class Unit : INotifyPropertyChanged, IDataErrorInfo
     {
 
-        #region UnitProperties
+        #region Unit Properties
 
-        private String _Name;
+        private String _name;
         /// <summary>
         /// Gets or sets the unit's name
         /// </summary>
@@ -22,65 +23,66 @@ namespace SimpleRPG.Models
         {
             get
             {
-                return _Name;
+                return _name;
             }
             set
             {
-                _Name = "";
+                _name = "";
                 char[] temp = value.ToCharArray();
                 for(int i = 0; i < 10 && i < temp.Length; i++)
                 {
                     if(((temp[i] >= 'a' && temp[i] <= 'z') || (temp[i] >= 'A' && temp[i] <= 'Z')))
                     {
-                        _Name += temp[i];
+                        _name += temp[i];
                     }
                 }
-                _Name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_Name.ToLower());
+                _name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(_name.ToLower());
 
                 OnPropertyChanged("Name");
                 OnPropertyChanged("ClassError");
-                OnPropertyChanged(this["Name"]);
+                //OnPropertyChanged(this["Name"]);
             }
         }
 
-        private int _MaxHealth;
+        private int _health;
         /// <summary>
         /// Gets or sets the unit's maxHealth
         /// </summary>
-        public int MaxHealth
+        public int Health
         {
             get
             {
-                return _MaxHealth;
+                return _health;
             }
             set
             {
-                _MaxHealth = value;
-                OnPropertyChanged("MaxHealth");
+                _health = value;
+                OnPropertyChanged("Health");
                 OnPropertyChanged("ClassError");
-                OnPropertyChanged(this["MaxHealth"]);
+                //OnPropertyChanged(this["Health"]);
             }
         }
 
-        private int _CurrentHealth;
+        private int _speed;
         /// <summary>
         /// Gets or sets the unit's currentHealth
         /// </summary>
-        public int CurrentHealth
+        public int Speed
         {
             get
             {
-                return _CurrentHealth;
+                return _speed;
             }
             set
             {
-                _CurrentHealth = value;
-                OnPropertyChanged("CurrentHealth");
+                _speed = value;
+                OnPropertyChanged("Speed");
                 OnPropertyChanged("ClassError");
+                //OnPropertyChanged(this["Speed"]);
             }
         }
 
-        private int _Attack;
+        private int _attack;
         /// <summary>
         /// Gets or sets the unit's attack
         /// </summary>
@@ -88,18 +90,19 @@ namespace SimpleRPG.Models
         {
             get
             {
-                return _Attack;
+                return _attack;
             }
             set
             {
-                _Attack = value;
+                _attack = value;
                 OnPropertyChanged("Attack");
                 OnPropertyChanged("ClassError");
+                //OnPropertyChanged(this["Attack"]);
             }
         }
 
 
-        private int _Defense;
+        private int _defense;
         /// <summary>
         /// Gets or sets the unit's defense
         /// </summary>
@@ -107,13 +110,14 @@ namespace SimpleRPG.Models
         {
             get
             {
-                return _Defense;
+                return _defense;
             }
             set
             {
-                _Defense = value;
+                _defense = value;
                 OnPropertyChanged("Defense");
                 OnPropertyChanged("ClassError");
+                OnPropertyChanged(this["Defense"]);
             }
         }
 
@@ -124,13 +128,14 @@ namespace SimpleRPG.Models
         /// </summary>
         /// <param name="unitName"> Name </param>
         /// <param name="health"> Health </param>
+        /// <param name="speed"> Speed </param>
         /// <param name="attack"> Attack </param>
         /// <param name="defense"> Defense </param>
-        public Unit(String unitName, int health, int attack, int defense)
+        public Unit(String unitName, int health, int speed, int attack, int defense)
         {
             Name = unitName;
-            MaxHealth = health;
-            CurrentHealth = MaxHealth;
+            Health = health;
+            Speed = speed;
             Attack = attack;
             Defense = defense;
         }
@@ -164,27 +169,40 @@ namespace SimpleRPG.Models
         {
             get
             {
-                _classError = "";
-                if (String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
+                StringBuilder sb = new StringBuilder();
+                //if (String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
+                //{
+                //    sb.AppendLine("Invalid Name Length.");
+                //}
+                //if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                //{
+                //    sb.AppendLine("Invalid Name Format.");
+                //}
+                //if (Health < 10 || Health > 100)
+                //{
+                //    sb.AppendLine("Health outside of acceptable range.");
+                //}
+                //if (Speed <= 0 || Attack > 50)
+                //{
+                //    sb.AppendLine("Attack outside of acceptable range.");
+                //}
+                //if (Attack <= 0 || Attack > 50)
+                //{
+                //    sb.AppendLine("Attack outside of acceptable range.");
+                //}
+                //if (Defense <= 0 || Defense > 50)
+                //{
+                //    sb.AppendLine("Health outside of acceptable range.");
+                //}
+                String[] properties = { "Name", "Health", "Attack", "Defense", "Speed" };
+                foreach (String s in properties)
                 {
-                    _classError += "Invalid Name Length.";
+                    if (!String.IsNullOrEmpty(this[s]))
+                    {
+                        sb.AppendLine(this[s]);
+                    }
                 }
-                if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
-                {
-                    _classError += "Invalid Name Format.";
-                }
-                if (MaxHealth < 10 || MaxHealth > 100)
-                {
-                    _classError += "Health outside of acceptable range.";
-                }
-                if (Attack <= 0 || Attack > 50)
-                {
-                    _classError += "Attack outside of acceptable range.";
-                }
-                if (Defense <= 0 || Defense > 50)
-                {
-                    _classError += "Health outside of acceptable range.";
-                }
+                _classError = sb.ToString();
                 return _classError;
             }
             private set
@@ -194,41 +212,51 @@ namespace SimpleRPG.Models
             }
         }
 
-        public string this[string columnName]
+        public string this[string propertyName]
         {
             get
             {
                 Error = "";
-                if (columnName == "Name")
+                if (propertyName == "Name")
                 {
-                    if (String.IsNullOrWhiteSpace(Name) || Name.Length > 10 || Name.Length < 4)
-                    {
-                        Error += "Invalid Name Length.";
+                    if (String.IsNullOrWhiteSpace(Name)){
+                        Error = "Name is Empty";
                     }
-                    if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                    else if(Name.Length > 10 || Name.Length < 4)
                     {
-                        Error += "Invalid Name Format.";
+                        Error = "Invalid Name Length.";
+                    }
+                    else if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                    {
+                        Error = "Invalid Name Format.";
                     }
                 }
-                else if (columnName == "MaxHealth")
+                else if (propertyName == "Health")
                 {
-                    if (MaxHealth < 10 || MaxHealth > 100)
+                    if (Health < 10 || Health > 100)
                     {
-                        Error += "Health outside of acceptable range.";
+                        Error = "Health outside of acceptable range.";
                     }
                 }
-                else if (columnName == "Attack")
+                else if (propertyName == "Speed")
+                {
+                    if (Speed <= 0 || Speed > 50)
+                    {
+                        Error = "Speed outside of acceptable range.";
+                    }
+                }
+                else if (propertyName == "Attack")
                 {
                     if (Attack <= 0 || Attack > 50)
                     {
-                        Error += "Attack outside of acceptable range.";
+                        Error = "Attack outside of acceptable range.";
                     }
                 }
-                else if (columnName == "Defense")
+                else if (propertyName == "Defense")
                 {
                     if (Defense <= 0 || Defense > 50)
                     {
-                        Error += "Health outside of acceptable range.";
+                        Error = "Defense outside of acceptable range.";
                     }
                 }
                 else

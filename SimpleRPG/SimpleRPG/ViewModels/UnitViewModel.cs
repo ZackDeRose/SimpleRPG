@@ -27,7 +27,7 @@ namespace SimpleRPG.ViewModels
         /// </summary>
         public UnitViewModel()
         {
-            _Unit = new Models.Unit("", 0, 0, 0);
+            _Unit = new Models.Unit("", 0, 0, 0, 0);
         }
 
         public UnitViewModel(Unit unit)
