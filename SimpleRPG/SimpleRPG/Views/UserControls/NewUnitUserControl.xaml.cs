@@ -22,16 +22,20 @@ namespace SimpleRPG.Views.UserControls
     /// </summary>
     public partial class NewUnitUserControl : UserControl
     {
+        private Window _parentWindow = null;
         public NewUnitUserControl()
         {
             InitializeComponent();
             NewUnitViewModel nuvm = new NewUnitViewModel();
             DataContext = nuvm;
-            //if (cuvm.CloseAction == null)
-            //{
-            //    var window = Window.GetWindow(this);
-            //    cuvm.CloseAction = new Action(window.Close);
-            //}
+            Loaded += (s, e) =>
+            {
+                _parentWindow = Window.GetWindow(this);
+                if (nuvm.CloseAction == null)
+                {
+                    nuvm.CloseAction = new Action(_parentWindow.Close);
+                }
+            };
         }
     }
 }
