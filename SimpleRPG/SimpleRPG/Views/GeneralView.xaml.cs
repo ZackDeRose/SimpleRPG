@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace SimpleRPG.Views
 {
     /// <summary>
-    /// Interaction logic for Window1.xaml
+    /// Interaction logic for GeneralView.xaml
     /// </summary>
-    public partial class UnitWindow : Window
+    public partial class GeneralView : Window
     {
-        public UnitWindow()
+        public GeneralView()
         {
             InitializeComponent();
             DataContext = new NewUnitViewModel();

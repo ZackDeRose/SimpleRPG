@@ -117,7 +117,7 @@ namespace SimpleRPG.Models
                 _defense = value;
                 OnPropertyChanged("Defense");
                 OnPropertyChanged("ClassError");
-                //OnPropertyChanged(this["Defense"]);
+                OnPropertyChanged(this["Defense"]);
             }
         }
 
@@ -202,7 +202,13 @@ namespace SimpleRPG.Models
                         sb.AppendLine(this[s]);
                     }
                 }
-                _classError = sb.ToString();
+                String tmp = sb.ToString();
+                if (String.IsNullOrEmpty(tmp))
+                {
+                    tmp = null;
+                }
+                _classError = tmp;
+
                 return _classError;
             }
             private set
@@ -216,7 +222,51 @@ namespace SimpleRPG.Models
         {
             get
             {
-                Error = "";
+                Error = null;
+
+                switch (propertyName)
+                {
+                    case "Name":
+                        if (String.IsNullOrWhiteSpace(Name))
+                        {
+                            Error = "Name is Empty";
+                        }
+                        else if (Name.Length > 10 || Name.Length < 4)
+                        {
+                            Error = "Invalid Name Length.";
+                        }
+                        else if (!Regex.IsMatch(Name, @"^[a-zA-Z]+$"))
+                        {
+                            Error = "Invalid Name Format.";
+                        }
+                        break;
+                    case "Health":
+                        if (Health < 10 || Health > 100)
+                        {
+                            Error = "Health outside of acceptable range.";
+                        }
+                        break;
+                    case "Speed":
+                        if (Speed <= 0 || Speed > 50)
+                        {
+                            Error = "Speed outside of acceptable range.";
+                        }
+                        break;
+                    case "Attack":
+                        if (Attack <= 0 || Attack > 50)
+                        {
+                            Error = "Attack outside of acceptable range.";
+                        }
+                        break;
+                    case "Defense":
+                        if (Defense <= 0 || Defense > 50)
+                        {
+                            Error = "Defense outside of acceptable range.";
+                        }
+                        break;
+                }
+
+                /*
                 if (propertyName == "Name")
                 {
                     if (String.IsNullOrWhiteSpace(Name)){
@@ -263,6 +313,7 @@ namespace SimpleRPG.Models
                 {
                    //
                 }
+                */
                 return Error;
             }
         }

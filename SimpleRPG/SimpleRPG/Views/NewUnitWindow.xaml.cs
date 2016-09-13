@@ -20,10 +20,41 @@ namespace SimpleRPG.Views
     /// </summary>
     public partial class NewUnitWindow : Window
     {
+        System.Drawing.Point windowLoc = Properties.Settings.Default.WindowsLoc;
+        System.Drawing.Size windowSize = Properties.Settings.Default.WindowSize;
+
         public NewUnitWindow()
         {
             InitializeComponent();
-            DataContext = new UnitViewModel();
+            SetWindowProperties();
+            //CreateUnitViewModel cuvm = new CreateUnitViewModel();
+            //DataContext = cuvm;
+            //if(cuvm.CloseAction == null)
+            //{
+            //    cuvm.CloseAction = new Action(this.Close);
+            //}
+        }
+
+        private void SetWindowProperties()
+        {
+            this.Top = windowLoc.Y;
+            this.Left = windowLoc.X;
+        }
+
+
+        private void SaveProperties()
+        {
+
+            System.Drawing.Point tempPoint = new System.Drawing.Point((int)this.Left, (int)this.Top);
+
+            Properties.Settings.Default.WindowsLoc= tempPoint;
+
+            Properties.Settings.Default.Save();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SaveProperties();
         }
     }
 }
