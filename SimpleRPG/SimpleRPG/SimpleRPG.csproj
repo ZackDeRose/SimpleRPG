@@ -57,6 +57,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Commands\RelayCommand.cs" />
+    <Compile Include="ViewModels\NewUnitDialogViewModel.cs" />
     <Compile Include="Views\UserControls\NewUnitUserControl.xaml.cs">
       <DependentUpon>NewUnitUserControl.xaml</DependentUpon>
     </Compile>

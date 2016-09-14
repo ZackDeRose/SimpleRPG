@@ -9,7 +9,7 @@
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize">
 
-    <controls:NewUnitUserControl />
+    <controls:NewUnitUserControl x:Name="NewUnitUserControl"/>
 
 
     <!--

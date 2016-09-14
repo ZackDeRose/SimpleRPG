@@ -28,14 +28,14 @@ namespace SimpleRPG.Views.UserControls
             InitializeComponent();
             NewUnitViewModel nuvm = new NewUnitViewModel();
             DataContext = nuvm;
-            Loaded += (s, e) =>
-            {
-                _parentWindow = Window.GetWindow(this);
-                if (nuvm.CloseAction == null)
-                {
-                    nuvm.CloseAction = new Action(_parentWindow.Close);
-                }
-            };
+            //Loaded += (s, e) =>
+            //{
+            //    _parentWindow = Window.GetWindow(this);
+            //    if (nuvm.CloseAction == null)
+            //    {
+            //        nuvm.CloseAction = new Action(_parentWindow.Close);
+            //    }
+            //};
         }
     }
 }

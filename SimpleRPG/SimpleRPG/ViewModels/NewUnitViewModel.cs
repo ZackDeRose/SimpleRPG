@@ -16,6 +16,13 @@ namespace SimpleRPG.ViewModels
     {
         #region Properties
 
+        private bool _enabled;
+        public bool Enabled
+        {
+            get { return _enabled; }
+            set { _enabled = value; OnPropertyChanged("Enabled"); }
+        }
+
         private Unit _unit;
         public Unit Unit
         {
@@ -23,7 +30,8 @@ namespace SimpleRPG.ViewModels
             set { _unit = value; OnPropertyChanged("Unit"); }
         }
 
-        public Action CloseAction { get; set; }
+        public Action CancelAction { get; set; }
+        public Action CreateUnitAction { get; set; }
 
         private ICommand _createUnitCommand;
         public ICommand CreateUnitCommand
@@ -46,7 +54,7 @@ namespace SimpleRPG.ViewModels
             {
                 if (_cancelCommand == null)
                 {
-                    _cancelCommand = new RelayCommand(param => Cancel(), param => true);
+                    _cancelCommand = new RelayCommand(param => Cancel(), null);
                 }
                 return _cancelCommand;
             }
@@ -88,12 +96,12 @@ namespace SimpleRPG.ViewModels
 
         public void CreateUnit()
         {
-            Debug.Assert(false, String.Format("{0} was created.", Unit.Name));
+            this.CreateUnitAction();
         }
 
         public void Cancel()
         {
-            this.CloseAction();
+            this.CancelAction();
         }
 
         #endregion
