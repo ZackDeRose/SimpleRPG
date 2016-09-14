@@ -14,7 +14,7 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin ="10">
+    <Grid Margin ="10" x:Name="LayoutRoot">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <Border Padding="5" HorizontalAlignment="Right" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">

@@ -22,12 +22,31 @@ namespace SimpleRPG.Views.UserControls
     /// </summary>
     public partial class NewUnitUserControl : UserControl
     {
-        private Window _parentWindow = null;
+        #region Value DP
+
+        /// <summary>
+        /// Gets or sets the Value which is being displayed
+        /// </summary>
+        public object Value
+        {
+            get { return (object)GetValue(ValueProperty); }
+            set { SetValue(ValueProperty, value); }
+        }
+
+        /// <summary>
+        /// Identified the Label dependency property
+        /// </summary>
+        public static readonly DependencyProperty ValueProperty =
+            DependencyProperty.Register("Value", typeof(object),
+              typeof(NewUnitUserControl), new PropertyMetadata(null));
+
+        #endregion
+
         public NewUnitUserControl()
         {
             InitializeComponent();
             NewUnitViewModel nuvm = new NewUnitViewModel();
-            DataContext = nuvm;
+            LayoutRoot.DataContext = this;
             //Loaded += (s, e) =>
             //{
             //    _parentWindow = Window.GetWindow(this);

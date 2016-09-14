@@ -10,22 +10,58 @@ namespace SimpleRPG.ViewModels
 {
     class NewUnitDialogViewModel : INotifyPropertyChanged
     {
+
+
         private NewUnitViewModel _newUnitViewModel;
         public NewUnitViewModel NewUnitViewModel {
             get { return _newUnitViewModel; }
-            set { _newUnitViewModel = value; OnPropertyChanged("NewUnitViewModel"); }
+            set {
+                _newUnitViewModel = value;
+                _newUnitViewModel.CancelAction = CancelAction;
+                _newUnitViewModel.CreateUnitAction = CreateUnitAction;
+                OnPropertyChanged("NewUnitViewModel");
+            }
         }
 
-        public Action CreateUnitAction { get; set; }
-        public Action CancelAction { get; set; }
-
-        public NewUnitDialogViewModel(NewUnitViewModel nuvm)
+        private Action _createUnitAction;
+        public Action CreateUnitAction
         {
-            NewUnitViewModel = nuvm;
-            NewUnitViewModel.Enabled = true;
+            get
+            {
+                return _createUnitAction;
+            }
+            set
+            {
+                _createUnitAction = value;
+                if (NewUnitViewModel != null)
+                {
+                    NewUnitViewModel.CreateUnitAction = value;
+                }
+                OnPropertyChanged("CreateUnitAction");
+            }
+        }
+
+        private Action _cancelAction;
+        public Action CancelAction
+        {
+            get
+            {
+                return _cancelAction;
+            }
+            set
+            {
+                _cancelAction = value;
+                if (NewUnitViewModel != null)
+                {
+                    _newUnitViewModel.CancelAction = this.CancelAction;
+                }
+                OnPropertyChanged("CreateUnitAction");
+            }
+        }
+
+        public NewUnitDialogViewModel()
+        {
             CreateUnitAction = CreateUnit;
-            NewUnitViewModel.CreateUnitAction = this.CreateUnitAction;
-            NewUnitViewModel.CancelAction = this.CancelAction;
         }
 
         public void CreateUnit()

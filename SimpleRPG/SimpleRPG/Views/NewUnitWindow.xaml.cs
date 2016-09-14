@@ -27,13 +27,10 @@ namespace SimpleRPG.Views
         {
             InitializeComponent();
             SetWindowProperties();
-            NewUnitDialogViewModel nudvm = new NewUnitDialogViewModel(this.NewUnitUserControl.DataContext as NewUnitViewModel);
+            NewUnitDialogViewModel nudvm = new NewUnitDialogViewModel();
             DataContext = nudvm;
-            var window = Window.GetWindow(this);
-            Loaded += (s, e) =>
-            {
-                nudvm.CancelAction = new Action(window.Close);
-            };
+            nudvm.NewUnitViewModel = NewUnitUserControl.DataContext as NewUnitViewModel;
+            nudvm.CancelAction = new Action(Close);
         }
 
         private void SetWindowProperties()
@@ -56,6 +53,11 @@ namespace SimpleRPG.Views
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             SaveProperties();
+        }
+
+        private void NewUnitUserControl_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
         }
     }
 }
