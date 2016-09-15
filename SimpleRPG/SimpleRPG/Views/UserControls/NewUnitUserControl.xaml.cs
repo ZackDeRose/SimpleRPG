@@ -1,4 +1,5 @@
-﻿using SimpleRPG.ViewModels;
+﻿using SimpleRPG.Models;
+using SimpleRPG.ViewModels;
 using SimpleRPG.Views;
 using System;
 using System.Collections.Generic;
@@ -22,30 +23,70 @@ namespace SimpleRPG.Views.UserControls
     /// </summary>
     public partial class NewUnitUserControl : UserControl
     {
-        #region Value DP
+        #region DependencyProperties
 
         /// <summary>
         /// Gets or sets the Value which is being displayed
         /// </summary>
-        public object Value
+        public object ViewModel
         {
-            get { return (object)GetValue(ValueProperty); }
-            set { SetValue(ValueProperty, value); }
+            get { return GetValue(ViewModelProperty); }
+            set { SetValue(ViewModelProperty, value); }
         }
 
         /// <summary>
         /// Identified the Label dependency property
         /// </summary>
-        public static readonly DependencyProperty ValueProperty =
-            DependencyProperty.Register("Value", typeof(object),
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register("ViewModel", typeof(NewUnitViewModel),
               typeof(NewUnitUserControl), new PropertyMetadata(null));
+
+
+        public object Unit
+        {
+            get { return GetValue(UnitProperty); }
+            set { SetValue(UnitProperty, value); }
+        }
+
+        /// <summary>
+        /// Identified the Label dependency property
+        /// </summary>
+        public static readonly DependencyProperty UnitProperty =
+            DependencyProperty.Register("Unit", typeof(Unit),
+              typeof(NewUnitUserControl), new PropertyMetadata(null));
+
+        public object CancelCommand
+        {
+            get { return GetValue(CancelCommandProperty); }
+            set { SetValue(CancelCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Identified the Label dependency property
+        /// </summary>
+        public static readonly DependencyProperty CancelCommandProperty =
+            DependencyProperty.Register("CancelCommand", typeof(object),
+              typeof(NewUnitUserControl), new PropertyMetadata(null));
+
+        public object CreateCommand
+        {
+            get { return GetValue(CreateCommandProperty); }
+            set { SetValue(CreateCommandProperty, value); }
+        }
+
+        /// <summary>
+        /// Identified the Label dependency property
+        /// </summary>
+        public static readonly DependencyProperty CreateCommandProperty =
+            DependencyProperty.Register("CreateCommand", typeof(object),
+              typeof(NewUnitUserControl), new PropertyMetadata(null));
+
 
         #endregion
 
         public NewUnitUserControl()
         {
             InitializeComponent();
-            NewUnitViewModel nuvm = new NewUnitViewModel();
             LayoutRoot.DataContext = this;
             //Loaded += (s, e) =>
             //{

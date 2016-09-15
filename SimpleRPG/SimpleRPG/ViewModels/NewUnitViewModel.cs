@@ -31,19 +31,23 @@ namespace SimpleRPG.ViewModels
         }
 
         public Action CancelAction { get; set; }
-        public Action CreateUnitAction { get; set; }
+        public Action CreateAction
+        {
+            get;
+            set;
+        }
 
-        private ICommand _createUnitCommand;
-        public ICommand CreateUnitCommand
+        private ICommand _createCommand;
+        public ICommand CreateCommand
         {
             get
             {
-                if (_createUnitCommand == null)
+                if (_createCommand == null)
                 {
-                    _createUnitCommand = new RelayCommand(param => CreateUnit(), 
+                    _createCommand = new RelayCommand(param => CreateUnit(), 
                         param => string.IsNullOrWhiteSpace(Unit.ClassError));
                 }
-                return _createUnitCommand;
+                return _createCommand;
             }
         }
 
@@ -70,16 +74,19 @@ namespace SimpleRPG.ViewModels
         public NewUnitViewModel()
         {
             _unit = new Models.Unit("", 0, 0, 0, 0);
+            Enabled = true;
         }
 
         public NewUnitViewModel(Unit unit)
         {
             _unit = unit;
+            Enabled = true;
         }
 
         public NewUnitViewModel(String name, int health, int speed, int attack, int defense)
         {
             _unit = new Models.Unit(name, health, speed, attack, defense);
+            Enabled = true;
         }
 
         #endregion
@@ -96,7 +103,7 @@ namespace SimpleRPG.ViewModels
 
         public void CreateUnit()
         {
-            this.CreateUnitAction();
+            this.CreateAction();
         }
 
         public void Cancel()

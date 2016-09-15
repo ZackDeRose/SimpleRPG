@@ -11,14 +11,16 @@ namespace SimpleRPG.ViewModels
     class NewUnitDialogViewModel : INotifyPropertyChanged
     {
 
-
         private NewUnitViewModel _newUnitViewModel;
         public NewUnitViewModel NewUnitViewModel {
             get { return _newUnitViewModel; }
             set {
                 _newUnitViewModel = value;
-                _newUnitViewModel.CancelAction = CancelAction;
-                _newUnitViewModel.CreateUnitAction = CreateUnitAction;
+                if (_newUnitViewModel != null)
+                {
+                    _newUnitViewModel.CancelAction = CancelAction;
+                    _newUnitViewModel.CreateAction = CreateUnitAction;
+                }
                 OnPropertyChanged("NewUnitViewModel");
             }
         }
@@ -35,7 +37,7 @@ namespace SimpleRPG.ViewModels
                 _createUnitAction = value;
                 if (NewUnitViewModel != null)
                 {
-                    NewUnitViewModel.CreateUnitAction = value;
+                    NewUnitViewModel.CreateAction = value;
                 }
                 OnPropertyChanged("CreateUnitAction");
             }
@@ -62,6 +64,9 @@ namespace SimpleRPG.ViewModels
         public NewUnitDialogViewModel()
         {
             CreateUnitAction = CreateUnit;
+            NewUnitViewModel = new NewUnitViewModel("Test", 1, 2, 3, 4);
+            NewUnitViewModel.CancelAction = this.CancelAction;
+            NewUnitViewModel.CreateAction = this.CreateUnitAction;
         }
 
         public void CreateUnit()
@@ -69,10 +74,10 @@ namespace SimpleRPG.ViewModels
             Debug.Assert(false, String.Format("{0} was created", NewUnitViewModel.Unit.Name));
         }
 
-        public void Cancel()
-        {
-            this.CancelAction();
-        }
+        //public void Cancel()
+        //{
+        //    this.CancelAction();
+        //}
 
         #region INotifyProperty Members
 

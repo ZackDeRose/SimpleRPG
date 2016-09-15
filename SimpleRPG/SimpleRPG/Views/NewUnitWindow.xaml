@@ -4,13 +4,24 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SimpleRPG.Views"
+        xmlns:viewModels="clr-namespace:SimpleRPG.ViewModels"
         xmlns:controls="clr-namespace:SimpleRPG.Views.UserControls"
         mc:Ignorable="d" Closing="Window_Closing"
         SizeToContent="WidthAndHeight"
         ResizeMode="NoResize">
-
-    <controls:NewUnitUserControl x:Name="NewUnitUserControl" Value" />
-
+    <Grid>
+        <!--
+        <controls:NewUnitUserControl
+            ViewModel="{Binding NewUnitViewModel}"
+            Unit="{Binding ViewModel.Unit}"
+            CreateCommand="{Binding ViewModel.CreateCommand}"
+            CancelCommand="{Binding ViewModel.CancelCommand}"
+        />
+        -->
+        <controls:NewUnitUserControl
+            ViewModel="{Binding NewUnitViewModel}"
+        />
+    </Grid>
 
     <!--
     <Window.Resources>

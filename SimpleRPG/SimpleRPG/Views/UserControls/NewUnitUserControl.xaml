@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimpleRPG.Views.UserControls">
+             xmlns:local="clr-namespace:SimpleRPG.Views.UserControls"
+             DataContext="{Binding ViewModel}">
     <UserControl.Resources>
         <Style x:Key="AttirbuteTextBoxes" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -12,10 +13,18 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <Style x:Key="ModuleTitle" TargetType="{x:Type Label}">
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
     </UserControl.Resources>
 
     <Grid Margin ="10" x:Name="LayoutRoot">
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Border Padding="0,0,0,15">
+                <Label Style="{StaticResource ModuleTitle}">Create a New Unit</Label>
+            </Border>
             <Border Padding="5" HorizontalAlignment="Right" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Name:</Label>
@@ -40,7 +49,7 @@
                     <TextBox Style="{StaticResource AttirbuteTextBoxes}"  Text="{Binding Unit.Defense, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
                 </StackPanel>
             </Border>
-            <Border Padding="5" HorizontalAlignment="Right">
+            <Border Padding="5" HorizontalAlignment="Right" IsEnabled="{Binding Unit}">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Speed:</Label>
                     <TextBox Text="{Binding Unit.Speed, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=true}" Width="136" />
@@ -52,7 +61,7 @@
             <Border HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <Border Padding="10">
-                        <Button Command="{Binding CreateUnitCommand}" IsEnabled="{Binding CreateUnitCommand, UpdateSourceTrigger=PropertyChanged}" Width="50">Create</Button>
+                        <Button Command="{Binding CreateCommand}" IsEnabled="{Binding CreateCommand, UpdateSourceTrigger=PropertyChanged}" Width="50">Create</Button>
                     </Border>
                     <Border Padding="10">
                         <Button Command="{Binding CancelCommand}" Padding="5" Width="50">Cancel</Button>
