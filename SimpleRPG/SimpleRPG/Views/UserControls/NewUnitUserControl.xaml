@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:SimpleRPG.Views.UserControls"
-             DataContext="{Binding ViewModel}">
+             xmlns:local="clr-namespace:SimpleRPG.Views.UserControls">
     <UserControl.Resources>
         <Style x:Key="AttirbuteTextBoxes" TargetType="{x:Type TextBox}">
             <Style.Triggers>
@@ -28,43 +27,43 @@
             <Border Padding="5" HorizontalAlignment="Right" >
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Name:</Label>
-                    <TextBox Style="{StaticResource AttirbuteTextBoxes}" Text="{Binding Unit.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=true}" Width="136"/>
+                    <TextBox Style="{StaticResource AttirbuteTextBoxes}" Text="{Binding ViewModel.Unit.Name, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=true}" Width="136"/>
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Health:</Label>
-                    <TextBox Style="{StaticResource AttirbuteTextBoxes}" Text="{Binding Unit.Health, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
+                    <TextBox Style="{StaticResource AttirbuteTextBoxes}" Text="{Binding ViewModel.Unit.Health, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Attack:</Label>
-                    <TextBox Style="{StaticResource AttirbuteTextBoxes}"  Text="{Binding Unit.Attack, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
+                    <TextBox Style="{StaticResource AttirbuteTextBoxes}"  Text="{Binding ViewModel.Unit.Attack, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Defense:</Label>
-                    <TextBox Style="{StaticResource AttirbuteTextBoxes}"  Text="{Binding Unit.Defense, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
+                    <TextBox Style="{StaticResource AttirbuteTextBoxes}"  Text="{Binding ViewModel.Unit.Defense, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True, NotifyOnValidationError=true}" Width="136" />
                 </StackPanel>
             </Border>
-            <Border Padding="5" HorizontalAlignment="Right" IsEnabled="{Binding Unit}">
+            <Border Padding="5" HorizontalAlignment="Right">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <Label>Speed:</Label>
-                    <TextBox Text="{Binding Unit.Speed, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=true}" Width="136" />
+                    <TextBox Text="{Binding ViewModel.Unit.Speed, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True,NotifyOnValidationError=true}" Width="136" />
                 </StackPanel>
             </Border>
             <Border Padding="5" HorizontalAlignment="Center">
-                <TextBlock Text="{Binding Unit.ClassError, UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBlock Text="{Binding ViewModel.Unit.ClassError, UpdateSourceTrigger=PropertyChanged}"/>
             </Border>
             <Border HorizontalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                     <Border Padding="10">
-                        <Button Command="{Binding CreateCommand}" IsEnabled="{Binding CreateCommand, UpdateSourceTrigger=PropertyChanged}" Width="50">Create</Button>
+                        <Button Command="{Binding ViewModel.CreateCommand}" IsEnabled="{Binding ViewModel.CreateCommand, UpdateSourceTrigger=PropertyChanged}" Width="50">Create</Button>
                     </Border>
                     <Border Padding="10">
-                        <Button Command="{Binding CancelCommand}" Padding="5" Width="50">Cancel</Button>
+                        <Button Command="{Binding ViewModel.CancelCommand}" Padding="5" Width="50">Cancel</Button>
                     </Border>
                 </StackPanel>
             </Border>

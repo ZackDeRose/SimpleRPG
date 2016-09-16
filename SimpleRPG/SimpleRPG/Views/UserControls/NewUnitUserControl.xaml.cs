@@ -31,7 +31,11 @@ namespace SimpleRPG.Views.UserControls
         public object ViewModel
         {
             get { return GetValue(ViewModelProperty); }
-            set { SetValue(ViewModelProperty, value); }
+            set
+            {
+                SetValue(ViewModelProperty, value);
+
+            }
         }
 
         /// <summary>
@@ -84,10 +88,14 @@ namespace SimpleRPG.Views.UserControls
 
         #endregion
 
+        private NewUnitViewModel _newUnitViewModel;
+        public object NewUnitViewModel;
+        
         public NewUnitUserControl()
         {
             InitializeComponent();
             LayoutRoot.DataContext = this;
+
             //Loaded += (s, e) =>
             //{
             //    _parentWindow = Window.GetWindow(this);
